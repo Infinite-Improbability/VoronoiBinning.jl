@@ -17,7 +17,7 @@ function __init__()
     plt.rc("legend", fontsize=SMALL)           # legend fontsize
     plt.rc("figure", titlesize=BIG)            # fontsize of the figure title
     # plt.rc("text", usetex=true)                # use LaTeX for things like axis labels
-    plt.rc("font", family="Times New Roman")   # use Times New Roman font
+    # plt.rc("font", family="Times New Roman")   # use Times New Roman font
 end
 
 """
