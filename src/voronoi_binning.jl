@@ -4,7 +4,7 @@ abstract type VoronoiStrategy <: BinningStrategy end
 
 struct InitialVoronoi <: VoronoiStrategy end
 struct CentroidalVoronoi <: VoronoiStrategy end
-struct WeightedVoronoi <: VoronoiStrategy 
+struct WeightedVoronoi <: VoronoiStrategy
     weight_function::Base.Callable
     function WeightedVoronoi(weight_function=default_WVT_func)
         new(weight_function)
@@ -18,9 +18,9 @@ voronoi2Dbinning(
     N::AbstractVector{T2},
     target_SN::T2;
     kwargs...) where {
-        T1<:Real,
-        T2<:Real
-    } = voronoi2Dbinning(x, y, S, N, target_SN, default_SN_func, WeightedVoronoi(); kwargs...)
+    T1<:Real,
+    T2<:Real
+} = voronoi2Dbinning(x, y, S, N, target_SN, default_SN_func, WeightedVoronoi(); kwargs...)
 
 voronoi2Dbinning(
     x::AbstractVector{T1},
@@ -30,9 +30,9 @@ voronoi2Dbinning(
     target_SN::T2,
     bin_strategy::VoronoiStrategy;
     kwargs...) where {
-        T1<:Real,
-        T2<:Real
-    } = voronoi2Dbinning(x, y, S, N, target_SN, default_SN_func, bin_strategy; kwargs...)
+    T1<:Real,
+    T2<:Real
+} = voronoi2Dbinning(x, y, S, N, target_SN, default_SN_func, bin_strategy; kwargs...)
 
 voronoi2Dbinning(
     x::AbstractVector{T1},
@@ -42,63 +42,63 @@ voronoi2Dbinning(
     target_SN::T2,
     SN_func::Base.Callable;
     kwargs...) where {
-        T1<:Real,
-        T2<:Real
-    } = voronoi2Dbinning(x, y, S, N, target_SN, SN_func, WeightedVoronoi(); kwargs...)
+    T1<:Real,
+    T2<:Real
+} = voronoi2Dbinning(x, y, S, N, target_SN, SN_func, WeightedVoronoi(); kwargs...)
 
 voronoi2Dbinning(
-    x::AbstractVector{T1}, 
-    y::AbstractVector{T1}, 
-    S::AbstractVector{T2}, 
-    N::AbstractVector{T2}, 
+    x::AbstractVector{T1},
+    y::AbstractVector{T1},
+    S::AbstractVector{T2},
+    N::AbstractVector{T2},
     target_SN::T2,
     pixel_size::T3;
     kwargs...) where {
-        T1<:Real, 
-        T2<:Real,
-        T3<:Real
-    } = voronoi2Dbinning(x, y, S, N, target_SN, default_SN_func, pixel_size, WeightedVoronoi(); kwargs...)
+    T1<:Real,
+    T2<:Real,
+    T3<:Real
+} = voronoi2Dbinning(x, y, S, N, target_SN, default_SN_func, pixel_size, WeightedVoronoi(); kwargs...)
 
 voronoi2Dbinning(
-    x::AbstractVector{T1}, 
-    y::AbstractVector{T1}, 
-    S::AbstractVector{T2}, 
-    N::AbstractVector{T2}, 
+    x::AbstractVector{T1},
+    y::AbstractVector{T1},
+    S::AbstractVector{T2},
+    N::AbstractVector{T2},
     target_SN::T2,
     pixel_size::T3,
     bin_strategy::VoronoiStrategy;
     kwargs...) where {
-        T1<:Real, 
-        T2<:Real,
-        T3<:Real
-    } = voronoi2Dbinning(x, y, S, N, target_SN, default_SN_func, pixel_size, bin_strategy; kwargs...)
+    T1<:Real,
+    T2<:Real,
+    T3<:Real
+} = voronoi2Dbinning(x, y, S, N, target_SN, default_SN_func, pixel_size, bin_strategy; kwargs...)
 
 voronoi2Dbinning(
-    x::AbstractVector{T1}, 
-    y::AbstractVector{T1}, 
-    S::AbstractVector{T2}, 
-    N::AbstractVector{T2}, 
+    x::AbstractVector{T1},
+    y::AbstractVector{T1},
+    S::AbstractVector{T2},
+    N::AbstractVector{T2},
     target_SN::T2,
     SN_func::Base.Callable,
     pixel_size::T3;
     kwargs...) where {
-        T1<:Real, 
-        T2<:Real,
-        T3<:Real
-    } = voronoi2Dbinning(x, y, S, N, target_SN, SN_func, pixel_size, WeightedVoronoi(); kwargs...)
+    T1<:Real,
+    T2<:Real,
+    T3<:Real
+} = voronoi2Dbinning(x, y, S, N, target_SN, SN_func, pixel_size, WeightedVoronoi(); kwargs...)
 
 function voronoi2Dbinning(
-    x::AbstractVector{T1}, 
-    y::AbstractVector{T1}, 
-    S::AbstractVector{T2}, 
-    N::AbstractVector{T2}, 
+    x::AbstractVector{T1},
+    y::AbstractVector{T1},
+    S::AbstractVector{T2},
+    N::AbstractVector{T2},
     target_SN::T2,
     SN_func::Base.Callable,
     bin_strategy::VoronoiStrategy;
     kwargs...) where {
-        T1<:Real, 
-        T2<:Real
-    }
+    T1<:Real,
+    T2<:Real
+}
     if length(x) > 10^4
         error("Dataset has more than 10^4 pixels. Please provide a \'pixel_size\' argument.")
     end
@@ -106,7 +106,7 @@ function voronoi2Dbinning(
     pixel_size = Inf
     for i in 1:length(x)
         for j in (i+1):length(x)
-            sep = hypot(x[j]-x[i], y[j]-y[i])
+            sep = hypot(x[j] - x[i], y[j] - y[i])
             pixel_size = sep < pixel_size ? sep : pixel_size
         end
     end
@@ -115,29 +115,29 @@ function voronoi2Dbinning(
 end
 
 function voronoi2Dbinning(
-    x::AbstractVector{T1}, 
-    y::AbstractVector{T1}, 
-    S::AbstractVector{T2}, 
-    N::AbstractVector{T2}, 
+    x::AbstractVector{T1},
+    y::AbstractVector{T1},
+    S::AbstractVector{T2},
+    N::AbstractVector{T2},
     target_SN::T2,
     SN_func::Base.Callable,
     pixel_size::T3,
     bin_strategy::InitialVoronoi;
     verbose::Bool=false,
     plot::Bool=false) where {
-        T1<:Real, 
-        T2<:Real,
-        T3<:Real
-    }
+    T1<:Real,
+    T2<:Real,
+    T3<:Real
+}
     t1 = time()
     bin_numbers, xnode, ynode = initial_voronoi_step(x, y, S, N, target_SN, SN_func, pixel_size; verbose=verbose)
     t2 = time()
     weights = ones(eltype(xnode), length(xnode))
     bin_numbers, x̄, ȳ, SN, area = get_bin_quantities(x, y, S, N, xnode, ynode, weights, SN_func, pixel_size)
-    single = area .≈ pixel_size.^2
+    single = area .≈ pixel_size .^ 2
     if verbose
         println("Unbinned pixels: $(sum(single)) / $(length(x))")
-        println("Fractional S/N scatter: ", std(SN[.~single] .- target_SN)/target_SN * 100, " %")
+        println("Fractional S/N scatter: ", std(SN[.~single] .- target_SN) / target_SN * 100, " %")
         println("Elapsed time for accretion: $(@sprintf "%.2f" (t2 - t1)) seconds")
     end
     if plot
@@ -239,10 +239,10 @@ while allowing configuration options to modify how the data is binned.
 
 """
 function voronoi2Dbinning(
-    x::AbstractVector{T1}, 
-    y::AbstractVector{T1}, 
-    S::AbstractVector{T2}, 
-    N::AbstractVector{T2}, 
+    x::AbstractVector{T1},
+    y::AbstractVector{T1},
+    S::AbstractVector{T2},
+    N::AbstractVector{T2},
     target_SN::T2,
     SN_func::Base.Callable,
     pixel_size::T3,
@@ -252,10 +252,10 @@ function voronoi2Dbinning(
     R_thresh::T3=0.3,
     cvt_tolerance::T2=0.1,
     plot::Bool=false) where {
-        T1<:Real, 
-        T2<:Real,
-        T3<:Real
-    }
+    T1<:Real,
+    T2<:Real,
+    T3<:Real
+}
     t1 = time()
     bin_numbers, xnode, ynode = initial_voronoi_step(x, y, S, N, target_SN, SN_func, pixel_size; verbose=verbose, dist2_thresh=dist2_thresh,
         R_thresh=R_thresh)
@@ -265,19 +265,15 @@ function voronoi2Dbinning(
     t3 = time()
     verbose && println("Finished in $iters iterations.")
     bin_numbers, x̄, ȳ, SN, area = get_bin_quantities(x, y, S, N, xnode, ynode, weights, SN_func, pixel_size)
-    single = area .≈ pixel_size.^2
+    single = area .≈ pixel_size .^ 2
     if verbose
         println("Unbinned pixels: $(sum(single)) / $(length(x))")
-        println("Fractional S/N scatter: ", std(SN[.~single] .- target_SN)/target_SN * 100, " %")
+        println("Fractional S/N scatter: ", std(SN[.~single] .- target_SN) / target_SN * 100, " %")
         println("Elapsed time for accretion: $(@sprintf "%.2f" (t2 - t1)) seconds")
         println("Elapsed time for optimization: $(@sprintf "%.2f" (t3 - t2)) seconds")
     end
     if plot
-        if !DO_PLOTTING
-            fig, ax = nothing, nothing
-        else
-            fig, ax = plot_voronoi_tessellation(x, y, S, N, bin_numbers, xnode, ynode, x̄, ȳ, area, SN, target_SN, pixel_size)
-        end
+        fig, ax = plot_voronoi_tessellation(x, y, S, N, bin_numbers, xnode, ynode, x̄, ȳ, area, SN, target_SN, pixel_size)
         return bin_numbers, xnode, ynode, x̄, ȳ, SN, area, weights, fig, ax
     end
     bin_numbers, xnode, ynode, x̄, ȳ, SN, area, weights
